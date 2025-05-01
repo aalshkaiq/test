@@ -1,11 +1,7 @@
-FROM php:8.2-cli
+FROM php:8.2-apache
 
-# تحميل إضافات PHP لو تحتاجها
-RUN docker-php-ext-install curl
+# نسخ الملفات إلى السيرفر
+COPY . /var/www/html/
 
-# نسخ ملفات البوت
-COPY . /usr/src/app
-WORKDIR /usr/src/app
-
-# أمر تشغيل البوت بشكل دائم
-CMD [ "php", "bot.php" ]
+# تفعيل Apache
+EXPOSE 80
