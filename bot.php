@@ -1,11 +1,10 @@
 <?php
-$botToken = "YOUR_BOT_TOKEN";
-$update = json_decode(file_get_contents("php://input"), true);
 
-if (isset($update["message"]["text"])) {
-    $chatId = $update["message"]["chat"]["id"];
-    $messageText = $update["message"]["text"];
+$update = json_decode(file_get_contents('php://input'), true);
 
-    file_get_contents("https://api.telegram.org/bot$botToken/sendMessage?chat_id=$chatId&text=Hello+from+Render!");
-}
-?>
+$chat_id = $update["message"]["chat"]["id"];
+$text = $update["message"]["text"];
+$token = getenv("BOT_TOKEN"); // متغير من البيئة
+$api = "https://api.telegram.org/bot$token/";
+
+file_get_contents($api . "sendMessage?chat_id=$chat_id&text=You said: $text");
